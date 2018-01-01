@@ -1,0 +1,24 @@
+{
+    "fallback": "{HOST.NAME}:{TRIGGER.NAME}:{STATUS}",
+    "pretext": "{STATUS}",
+    "author_name": "{HOST.NAME}",
+    "title": "{TRIGGER.NAME}",
+    "title_link": "https://zabbix.scurvynet.com/tr_events.php?triggerid={TRIGGER.ID}&eventid={EVENT.RECOVERY.ID}",
+    "fields": [
+      {
+        "short": true,
+        "title":"Status",
+        "value":"{STATUS}"
+      },
+      {
+        "title": "Severity",
+        "value": "{TRIGGER.SEVERITY}",
+        "short": true
+      },
+      {
+        "title": "Start Time",
+        "value": "{EVENT.DATE} {EVENT.TIME} to {EVENT.RECOVERY.DATE} {EVENT.RECOVERY.TIME}",
+        "short": false
+      }
+    ]
+  }
