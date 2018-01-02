@@ -27,7 +27,7 @@ Installation
 install the JSON perl module
 
 ```
-cpanm JSON
+cpanm JSON Data::Dumper
 
 ```
 
