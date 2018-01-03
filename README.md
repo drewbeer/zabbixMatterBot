@@ -1,9 +1,9 @@
-Zabbix Mattermost Alert Script in perl
+Zabbix Matter Most Bot
 ========================
 
 About
 -----
-The perl script is the newer version, it handles attachments and larger text. Please make sure you minfy your json before you put it in zabbix.
+zabbixMatterBot is a script that takes in json from zabbix, parses it, and outputs stuff to a channel.
 
 
 #### Versions
@@ -38,8 +38,8 @@ copy the perl script mattermost.pl to your alert scripts directory
 	### Option: AlertScriptsPath
 	AlertScriptsPath=/var/lib/zabbix/alertscripts
 
-	[root@zabbix ~]# ls -lh /var/lib/zabbix/alertscriptsmattermost.sh
-	-rwxr-xr-x 1 root root 1.6K Nov 19 20:04 /var/lib/zabbix/alertscripts/mattermost.pl
+	[root@zabbix ~]# ls -lh /var/lib/zabbix/
+	-rwxr-xr-x 1 root root 1.6K Nov 19 20:04 /var/lib/zabbix/alertscripts/zabbixMatterBot.pl
 
 ```
 
@@ -77,24 +77,23 @@ https://drew.beer/images/bots/monitorBot.jpg
 * `{ALERT.SENDTO}`
 * `http://webhook.url.from.above/oranges`
 * `bots name here`
-* `http://img.icon.of.bot.here`
+* `https://drew.beer/images/bots/monitorBot.jpg`
 * `{ALERT.MESSAGE}`
 
 
 create a user like zabbixBot, and set media then add choose the new script, and the channel you want it to go to like #alerts or @someone.
 
+## supported Types
+so i wrote this to support triggers, but then i expanded it further.
 
-then setup the action in configurations, and then custom messages for both triggers and resolve.
+in the examples folder you'll see a bunch of JSON, make sure you minify it
 
-i used json because its less work that way, i can pass any data back and forth really.
+trigger.json - use for the trigger types in actions
+internal.json - for internal unsupported type triggers, and ldd
 
-```
-{"fallback":"fw1.fr.domain.com:Average Usage over 5sec per Processor#1 exceeded 80%:PROBLEM","pretext":"High","text":"","author_name":"fw1.fr.domain.com","title":"Average Usage over 5sec per Processor#1 exceeded 80%","title_link":"https://zabbix.yourdomain.com/tr_events.php?triggerid=14165&eventid=2796868","fields":[{"short":true,"title":"Status","value":"PROBLEM"},{"title":"Time","value":"2018.01.01 22:30:18","short":true}]}
-```
+have not looked into the discovery or registration messages yet, its really just pulling all the macros and seeing what comes out. you can enable debugging and play with messages.
 
-you'll notice its json minified, the examples are in this repo, you can just follow mattermosts examples for attachments.
-
-just make sure you minify otherwise it will break in a bad way.
+if you change notifyType from detailed to anything else then you'll get attachment style notifications for triggers. its bulkier but more information, still working on trying to exclude un-needed duplicate items.
 
 
 Testing
@@ -104,25 +103,25 @@ try this as an examples
 ```
 
 ./mattermost.pl monitoring https://your.webhook/url zabbix https://drew.beer/images/bots/monitorBot.jpg '{
-    "fallback": "{HOST.NAME}:{TRIGGER.NAME}:{STATUS}",
-    "pretext": "{TRIGGER.SEVERITY}",
-    "text": "{TRIGGER.DESCRIPTION}",
-    "author_name": "{HOST.NAME}",
-    "title": "{TRIGGER.NAME}",
-    "title_link": "https://zabbix.domain.com/tr_events.php?triggerid={TRIGGER.ID}&eventid={EVENT.ID}",
-    "fields": [
-      {
-        "short": true,
-        "title":"Status",
-        "value":"{STATUS}"
-      },
-      {
-        "title": "Time",
-        "value": "{EVENT.DATE} {EVENT.TIME}",
-        "short": true
-      }
-    ]
-  }'
+  "type": "trigger",
+  "notifyType": "detailed",
+  "hostname": "{HOST.NAME}",
+  "tName": "{TRIGGER.NAME}",
+  "tSeverity": "{TRIGGER.SEVERITY}",
+  "tDescription": "{TRIGGER.DESCRIPTION}",
+  "tStatus": "{TRIGGER.STATUS}",
+  "tUrl": "https://domain.com/tr_events.php?triggerid={TRIGGER.ID}&eventid={EVENT.ID}",
+  "tValue": "{TRIGGER.VALUE}",
+  "iName1": "{ITEM.NAME1}",
+  "iName2": "{ITEM.NAME2}",
+  "iName3": "{ITEM.NAME3}",
+  "iName4": "{ITEM.NAME4}",
+  "iValue1": "{ITEM.VALUE1}",
+  "iValue2": "{ITEM.VALUE2}",
+  "iValue3": "{ITEM.VALUE3}",
+  "iValue4": "{ITEM.VALUE4}"
+}
+'
 
 ```
 
