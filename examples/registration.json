@@ -1,0 +1,19 @@
+{
+  "type": "registration",
+  "notifyType": "detail",
+  "hostname": "{HOST.NAME}",
+  "tName": "{TRIGGER.NAME}",
+  "tSeverity": "{TRIGGER.SEVERITY}",
+  "tDescription": "{TRIGGER.DESCRIPTION}",
+  "tStatus": "{TRIGGER.STATUS}",
+  "tUrl": "https://zabbix.scurvynet.com/tr_events.php?triggerid={TRIGGER.ID}&eventid={EVENT.ID}",
+  "tValue": "{TRIGGER.VALUE}",
+  "iName1": "{ITEM.NAME1}",
+  "iName2": "{ITEM.NAME2}",
+  "iName3": "{ITEM.NAME3}",
+  "iName4": "{ITEM.NAME4}",
+  "iValue1": "{ITEM.VALUE1}",
+  "iValue2": "{ITEM.VALUE2}",
+  "iValue3": "{ITEM.VALUE3}",
+  "iValue4": "{ITEM.VALUE4}"
+}

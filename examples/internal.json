@@ -1,0 +1,13 @@
+{
+  "type": "internal",
+  "hostname": "{HOST.NAME}",
+  "state": "{ITEM.STATE}",
+  "key": "{ITEM.KEY}",
+  "item": "{ITEM.NAME}",
+  "lldRule": "{LLDRULE.NAME}",
+  "lldKey": "{LLDRULE.KEY}",
+  "lldState": "{LLDRULE.STATE}",
+  "tName": "{TRIGGER.NAME}",
+  "tExpression": "{TRIGGER.EXPRESSION}",
+  "tState": "{TRIGGER.STATE}"
+}
